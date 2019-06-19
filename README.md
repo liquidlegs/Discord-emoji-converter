@@ -1,2 +1,6 @@
 # Discord-emoji-converter
-A little python3 script that can be used to convert ascii text and some special characters to the discord emoji regional characters.
+
+A simple little script to convert text to the discord regional character emojis.
+
+Just type in the text you want to convert and the script spit out the emoji code, and copy it to the clipboard.
+When your done just type !!exit to the close the program.
