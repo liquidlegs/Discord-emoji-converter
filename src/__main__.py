@@ -11,44 +11,41 @@ BANNER = '''    ____  _                          __   ______                  _ 
                                                            /___/                               '''
 
 def main():
-	if len(sys.argv) < 2:
-		pass
 	
-	else:
-		for i in sys.argv:
-			if i == "-h" or i == "--help":
-				print(BANNER)
+	for i in sys.argv:
+		if i == "-h" or i == "--help":
+			print(BANNER)
 
-		parser = argparse.ArgumentParser(description="Converts text to discord emojis")
-		parser.add_argument("-s", "--shell", action = "store_true")
-		parser.add_argument("-S", "--show_sets", action = "store_true")
-		parser.add_argument("-l", "--line", action = "store")
-		parser.add_argument("-c", "--config-set", action = "store_true")
+	parser = argparse.ArgumentParser(description="Converts text to discord emojis")
+	parser.add_argument("-s", "--shell", action = "store_true")
+	parser.add_argument("-S", "--show_sets", action = "store_true")
+	parser.add_argument("-l", "--line", action = "store")
+	parser.add_argument("-c", "--config-set", action = "store_true")
 
-		args = parser.parse_args()		
-		config = load_config()
+	args = parser.parse_args()		
+	config = load_config()
 
-		if args.shell == True:
-			shell(config)
+	if args.shell == True:
+		shell(config)
+	
+	elif args.config_set == True:
+		config.get_character_sets()
+		status = config.select_character_set()
+
+		if status == True:
+			config.update_config()
+		else:
+			print("Error: failed to update config")
+			return
+	
+	elif args.line != None:
+		content = config.output_string(args.line)
+		cb.copy(content)
+		print(content)
 		
-		elif args.config_set == True:
-			config.get_character_sets()
-			status = config.select_character_set()
-
-			if status == True:
-				config.update_config()
-			else:
-				print("Error: failed to update config")
-				return
-		
-		elif args.line != None:
-			content = config.output_string(args.line)
-			cb.copy(content)
-			print(content)
-			
-		
-		elif args.show_sets == True:
-			config.get_character_sets()
+	
+	elif args.show_sets == True:
+		config.get_character_sets()
 
 
 if __name__ == "__main__":

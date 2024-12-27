@@ -139,7 +139,7 @@ def catch_key_exception(data: dict, key: str) -> str:
         return None
     
 
-def shell(config: ConfigFile):
+def shell(config: ConfigFile) -> None:
     if config.current_selection == None:
         config.select_character_set()
         config.update_config()
