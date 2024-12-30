@@ -1,2 +1,4 @@
-character_set_directory: character_sets
-current_selection: character_sets/creative_set.json
+auto_set_mode: true
+character_set_directory: sets
+current_selection: sets/ch_regional_indicator_set.json
+mode: char
