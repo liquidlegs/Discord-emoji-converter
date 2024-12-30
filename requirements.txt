@@ -1,3 +1,4 @@
 clipboard == 0.0.4
 PyYAML == 6.0.2
 rapidfuzz == 3.11.0
+rich == 13.9.4

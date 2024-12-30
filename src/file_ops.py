@@ -76,6 +76,7 @@ class ConfigFile():
 
     def output_string(self, input_string: str) -> str:
         output = ""
+        w_output = []
         
         if self.current_selection == None:
             status = self.select_character_set()
@@ -100,6 +101,8 @@ class ConfigFile():
                 if temp_data != None:
                     output += f"{temp_data} "
 
+            return output
+
 
         elif self.mode == "word":
             split_input = input_data.lower().split(" ")
@@ -107,19 +110,18 @@ class ConfigFile():
 
             for key in split_input:
                 value = catch_key_exception(character_set, key)
-                pair = process.extractOne(key, character_set, score_cutoff=80)
 
                 if value:
-                    output = output.replace(key, value, 1)
+                    w_output += [value]
+                    w_output += [" "]
                 else:
                     pair = process.extractOne(key, character_set, score_cutoff=80)
 
                     if pair:
-                        output = output.replace(key, pair[0], 1)
+                        w_output += [pair[0]]
+                        w_output += [" "]
 
-
-        return output
-        
+            return "".join(w_output)
 
 
 def load_config() -> ConfigFile:
