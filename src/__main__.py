@@ -1,7 +1,7 @@
 import argparse
 import sys
 import clipboard as cb
-from file_ops import load_config, shell
+from file_ops import load_config, shell, M_WORD,  M_CHAR
 
 BANNER = '''    ____  _                          __   ______                  _ _    ______                
    / __ \\(_)_____________  _________/ /  / ____/___ ___  ____    (_|_)  / ____/___  ____ _   __
@@ -11,7 +11,6 @@ BANNER = '''    ____  _                          __   ______                  _ 
                                                            /___/                               '''
 
 def main():
-	
 	for i in sys.argv:
 		if i == "-h" or i == "--help":
 			print(BANNER)
@@ -21,6 +20,7 @@ def main():
 	parser.add_argument("-S", "--show_sets", action = "store_true")
 	parser.add_argument("-l", "--line", action = "store")
 	parser.add_argument("-c", "--config-set", action = "store_true")
+	parser.add_argument("-m", "--mode", action="store")
 
 	args = parser.parse_args()		
 	config = load_config()
@@ -42,7 +42,17 @@ def main():
 		content = config.output_string(args.line)
 		cb.copy(content)
 		print(content)
+
+	elif args.mode != None:
+		mode = args.mode
+
+		if mode == M_CHAR or mode == M_WORD:
+			config.mode = mode
+		else:
+			print("Error: unknown mode")
+			return
 		
+		config.update_config()
 	
 	elif args.show_sets == True:
 		config.get_character_sets()
